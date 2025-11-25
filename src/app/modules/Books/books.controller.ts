@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
-import { BookService } from "./books.service";
+import { BookServices } from "./books.service";
 import sendResponse from "../../shared/sendResponse";
 import status from "http-status";
+import catchAsync from "../../shared/catchAsync";
 
-const createBook = async (req: Request, res: Response) => {
-  console.log("=======", req.body);
-  const result = await BookService.createBook(req);
+const createBook = catchAsync(async (req: Request, res: Response) => {
+  const result = await BookServices.createBook(req);
 
   // res.status(200).json({
   //   success: true,
@@ -18,8 +18,8 @@ const createBook = async (req: Request, res: Response) => {
     message: "Create a book successfully ",
     data: result,
   });
-};
+});
 
-export const BookController = {
+export const BookControllers = {
   createBook,
 };

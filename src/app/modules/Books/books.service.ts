@@ -7,6 +7,6 @@ const createBook = async (req: any) => {
   return result;
 };
 
-export const BookService = {
+export const BookServices = {
   createBook,
 };
