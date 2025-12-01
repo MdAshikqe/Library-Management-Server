@@ -7,6 +7,13 @@ const createBook = async (req: any) => {
   return result;
 };
 
+const getAllBook = async () => {
+  const result = await prisma.book.findMany();
+
+  return result;
+};
+
 export const BookServices = {
   createBook,
+  getAllBook,
 };
