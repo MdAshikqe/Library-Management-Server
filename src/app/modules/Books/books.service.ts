@@ -1,4 +1,6 @@
 import { prisma } from "../../../lib/prisma";
+import { IPagination } from "../../interface/pagination";
+import { IBookFilterRequest } from "./book.interface";
 
 const createBook = async (req: any) => {
   const result = await prisma.book.create({
@@ -7,9 +9,8 @@ const createBook = async (req: any) => {
   return result;
 };
 
-const getAllBook = async () => {
+const getAllBook = async (params: IBookFilterRequest, options: IPagination) => {
   const result = await prisma.book.findMany();
-
   return result;
 };
 
