@@ -65,7 +65,17 @@ const getAllBook = async (params: IBookFilterRequest, options: IPagination) => {
   };
 };
 
+const getByIdBook = async (id: string) => {
+  const result = await prisma.book.findUnique({
+    where: {
+      bookId: id,
+    },
+  });
+  return result;
+};
+
 export const BookServices = {
   createBook,
   getAllBook,
+  getByIdBook,
 };
