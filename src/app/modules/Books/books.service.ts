@@ -1,5 +1,4 @@
-import { Result } from "pg";
-import { Prisma } from "../../../../generated/prisma/client";
+import { Book, Prisma } from "../../../../generated/prisma/client";
 import { prisma } from "../../../lib/prisma";
 import { PaginationHelpers } from "../../helpers/paginationHelper";
 import { IPagination } from "../../interface/pagination";
@@ -74,8 +73,27 @@ const getByIdBook = async (id: string) => {
   return result;
 };
 
+const updateByIdBook = async (
+  id: string,
+  data: Partial<Book>
+): Promise<Book> => {
+  await prisma.book.findUniqueOrThrow({
+    where: {
+      bookId: id,
+    },
+  });
+  const result = await prisma.book.update({
+    where: {
+      bookId: id,
+    },
+    data,
+  });
+  return result;
+};
+
 export const BookServices = {
   createBook,
   getAllBook,
   getByIdBook,
+  updateByIdBook,
 };
