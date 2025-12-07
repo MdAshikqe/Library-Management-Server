@@ -5,3 +5,9 @@ export type IMemberFields = {
   phone?: String | undefined;
   membershipDate?: String | undefined;
 };
+
+export type IMemberDataReq = {
+  name?: String | null;
+  email?: String | null;
+  phone?: String | null;
+};

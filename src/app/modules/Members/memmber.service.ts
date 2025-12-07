@@ -3,7 +3,7 @@ import { prisma } from "../../../lib/prisma";
 import { PaginationHelpers } from "../../helpers/paginationHelper";
 import { IPagination } from "../../interface/pagination";
 import { memberSearchableField } from "./member.constant";
-import { IMemberFields } from "./member.interface";
+import { IMemberDataReq, IMemberFields } from "./member.interface";
 
 const createMember = async (data: any) => {
   const result = await prisma.member.create({
@@ -84,8 +84,26 @@ const getByIdMember = async (id: string) => {
   return result;
 };
 
+const updateByIdMember = async (id: string, data: any) => {
+  await prisma.member.findUniqueOrThrow({
+    where: {
+      memberId: id,
+      isDeleted: false,
+    },
+  });
+  const result = await prisma.member.update({
+    where: {
+      memberId: id,
+      isDeleted: false,
+    },
+    data,
+  });
+  return result;
+};
+
 export const MemberService = {
   createMember,
   getAllMembers,
   getByIdMember,
+  updateByIdMember,
 };
