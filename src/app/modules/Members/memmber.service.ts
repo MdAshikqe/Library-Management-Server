@@ -68,8 +68,20 @@ const getAllMembers = async (params: IMemberFields, options: IPagination) => {
   };
 };
 
-const getByIdMember = async () => {
-  console.log("get by id member");
+const getByIdMember = async (id: string) => {
+  await prisma.member.findUniqueOrThrow({
+    where: {
+      memberId: id,
+      isDeleted: false,
+    },
+  });
+  const result = await prisma.member.findUnique({
+    where: {
+      memberId: id,
+      isDeleted: false,
+    },
+  });
+  return result;
 };
 
 export const MemberService = {
