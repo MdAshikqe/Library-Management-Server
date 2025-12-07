@@ -60,9 +60,22 @@ const updateByIdMember = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const deleteByIdMember = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const result = await MemberService.deleteByIdMember(id);
+
+  sendResponse(res, {
+    statusCode: status.OK,
+    success: true,
+    message: "Member successfully deleted",
+    data: result,
+  });
+});
+
 export const MemberControllers = {
   createMember,
   getAllMembers,
   getByIdMember,
   updateByIdMember,
+  deleteByIdMember,
 };
