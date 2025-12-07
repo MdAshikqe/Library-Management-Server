@@ -51,9 +51,11 @@ const getAllBook = async (params: IBookFilterRequest, options: IPagination) => {
           }
         : { createdAt: "desc" },
   });
+
   const total = await prisma.book.count({
     where: whereCondition,
   });
+
   return {
     metaData: {
       page,
