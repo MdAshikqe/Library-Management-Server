@@ -72,10 +72,35 @@ const deleteByIdMember = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const softDeleteByIdMember = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const result = await MemberService.softDeleteByIdMember(id);
+
+  sendResponse(res, {
+    statusCode: status.OK,
+    success: true,
+    message: "Member succesfully soft deleted",
+    data: result,
+  });
+});
+
+const getSoftDelete = catchAsync(async (req: Request, res: Response) => {
+  const result = await MemberService.getSoftDelete();
+
+  sendResponse(res, {
+    statusCode: status.OK,
+    success: true,
+    message: "Member retrive successfully soft delete data",
+    data: result,
+  });
+});
+
 export const MemberControllers = {
   createMember,
   getAllMembers,
   getByIdMember,
   updateByIdMember,
   deleteByIdMember,
+  softDeleteByIdMember,
+  getSoftDelete,
 };

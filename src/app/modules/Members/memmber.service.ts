@@ -117,10 +117,40 @@ const deleteByIdMember = async (id: string) => {
   return result;
 };
 
+const softDeleteByIdMember = async (id: string) => {
+  await prisma.member.findUniqueOrThrow({
+    where: {
+      memberId: id,
+      isDeleted: false,
+    },
+  });
+  const result = await prisma.member.update({
+    where: {
+      memberId: id,
+      isDeleted: false,
+    },
+    data: {
+      isDeleted: true,
+    },
+  });
+  return result;
+};
+
+const getSoftDelete = async () => {
+  const result = await prisma.member.findMany({
+    where: {
+      isDeleted: true,
+    },
+  });
+  return result;
+};
+
 export const MemberService = {
   createMember,
   getAllMembers,
   getByIdMember,
   updateByIdMember,
   deleteByIdMember,
+  softDeleteByIdMember,
+  getSoftDelete,
 };
