@@ -53,6 +53,9 @@ const getAllMembers = async (params: IMemberFields, options: IPagination) => {
       options.sortBy && options.sortOrder
         ? { [options.sortBy]: options.sortOrder }
         : { createdAt: "desc" },
+    include: {
+      borrowRecords: true,
+    },
   });
   const total = await prisma.member.count({
     where: whereCondition,
@@ -80,6 +83,9 @@ const getByIdMember = async (id: string) => {
       memberId: id,
       isDeleted: false,
     },
+    include: {
+      borrowRecords: true,
+    },
   });
   return result;
 };
@@ -97,6 +103,9 @@ const updateByIdMember = async (id: string, data: any) => {
       isDeleted: false,
     },
     data,
+    include: {
+      borrowRecords: true,
+    },
   });
   return result;
 };
@@ -112,6 +121,9 @@ const deleteByIdMember = async (id: string) => {
     where: {
       memberId: id,
       isDeleted: false,
+    },
+    include: {
+      borrowRecords: true,
     },
   });
   return result;
@@ -131,6 +143,9 @@ const softDeleteByIdMember = async (id: string) => {
     },
     data: {
       isDeleted: true,
+    },
+    include: {
+      borrowRecords: true,
     },
   });
   return result;

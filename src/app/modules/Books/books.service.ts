@@ -50,6 +50,9 @@ const getAllBook = async (params: IBookFilterRequest, options: IPagination) => {
             [options.sortBy]: options.sortOrder,
           }
         : { createdAt: "desc" },
+    include: {
+      borrowRecords: true,
+    },
   });
 
   const total = await prisma.book.count({
@@ -71,6 +74,9 @@ const getByIdBook = async (id: string) => {
     where: {
       bookId: id,
     },
+    include: {
+      borrowRecords: true,
+    },
   });
   return result;
 };
@@ -89,6 +95,9 @@ const updateByIdBook = async (
       bookId: id,
     },
     data,
+    include: {
+      borrowRecords: true,
+    },
   });
   return result;
 };
@@ -97,6 +106,9 @@ const deleteByIdBook = async (id: string) => {
   const result = await prisma.book.delete({
     where: {
       bookId: id,
+    },
+    include: {
+      borrowRecords: true,
     },
   });
   return result;
