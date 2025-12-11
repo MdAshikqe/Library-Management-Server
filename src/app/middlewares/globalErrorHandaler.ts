@@ -61,6 +61,14 @@ const globarErrorHandaler = (
       error = err.meta;
     }
   }
+  if (err instanceof Prisma.PrismaClientKnownRequestError) {
+    if (err.code === "P2025") {
+      message =
+        "An operation failed because it depends on one or more records that were required but not found==========";
+      error = err.meta;
+    }
+  }
+
   if (err instanceof Prisma.PrismaClientUnknownRequestError) {
     if (err.message === "P1000") {
       message = "Database credentails errors";
